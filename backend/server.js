@@ -18,7 +18,10 @@ const port = 4000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://food-delivery-drab-seven-10.vercel.app",
+    origin: [
+      "https://food-delivery-drab-seven-10.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   }),
 );
