@@ -6,7 +6,7 @@ const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
 
-  const url = "http://localhost:4000";
+  const url = "https://food-delivery-backend.onrender.com";
   const [token, setToken] = useState("");
 
   const [food_list, setFoodList] = useState([]);
@@ -71,25 +71,43 @@ const StoreContextProvider = (props) => {
     if (cleanCode === "SAVE10") {
       setPromoDiscount(Math.round(getTotalCartAmount() * 0.1));
       setPromoCodeApplied("SAVE10");
-      return { success: true, message: "SAVE10 promo code applied (10% discount)!" };
+      return {
+        success: true,
+        message: "SAVE10 promo code applied (10% discount)!",
+      };
     } else if (cleanCode === "SAVE20") {
       setPromoDiscount(Math.round(getTotalCartAmount() * 0.2));
       setPromoCodeApplied("SAVE20");
-      return { success: true, message: "SAVE20 promo code applied (20% discount)!" };
+      return {
+        success: true,
+        message: "SAVE20 promo code applied (20% discount)!",
+      };
     } else if (cleanCode === "FOOD20") {
       if (getTotalCartAmount() > 50) {
         setPromoDiscount(20);
         setPromoCodeApplied("FOOD20");
-        return { success: true, message: "FOOD20 promo code applied (₹20 discount)!" };
+        return {
+          success: true,
+          message: "FOOD20 promo code applied (₹20 discount)!",
+        };
       } else {
-        return { success: false, message: "FOOD20 code requires a subtotal greater than ₹50." };
+        return {
+          success: false,
+          message: "FOOD20 code requires a subtotal greater than ₹50.",
+        };
       }
     } else if (cleanCode === "FREEBY") {
       setPromoDiscount(0);
       setPromoCodeApplied("FREEBY");
-      return { success: true, message: "FREEBY promo code applied (Free Delivery)!" };
+      return {
+        success: true,
+        message: "FREEBY promo code applied (Free Delivery)!",
+      };
     } else {
-      return { success: false, message: "Invalid promo code. Try SAVE10, SAVE20, FOOD20, or FREEBY." };
+      return {
+        success: false,
+        message: "Invalid promo code. Try SAVE10, SAVE20, FOOD20, or FREEBY.",
+      };
     }
   };
 
