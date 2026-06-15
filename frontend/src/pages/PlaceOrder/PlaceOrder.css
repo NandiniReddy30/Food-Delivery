@@ -1,3 +1,4 @@
+/* ── Place Order Layout ── */
 .place-order {
   display: flex;
   align-items: start;
@@ -32,4 +33,429 @@
 }
 .place-order .cart-total button {
   margin-top: 30px;
+}
+
+/* ── Payment Modal Overlay ── */
+.payment-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.payment-modal {
+  background: #fff;
+  border-radius: 18px;
+  width: 420px;
+  max-width: 95vw;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Modal Header ── */
+.payment-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.payment-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #222;
+}
+.brand-icon { font-size: 22px; }
+.modal-close {
+  background: #f2f2f2;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: #e0e0e0; }
+
+/* ── Amount Badge ── */
+.payment-amount-badge {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* ── Tabs ── */
+.payment-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tab {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #f4f4f4;
+  color: #555;
+  transition: all 0.2s;
+  user-select: none;
+}
+.tab.active {
+  background: tomato;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Card Visual ── */
+.card-visual {
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  min-height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+.card-visual::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.card-chip {
+  font-size: 22px;
+  color: gold;
+  margin-bottom: 12px;
+  letter-spacing: -2px;
+}
+.card-number-display {
+  font-size: 16px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+  font-family: monospace;
+  color: rgba(255,255,255,0.9);
+}
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Payment Form ── */
+.payment-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.payment-form input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 9px;
+  font-size: 15px;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.payment-form input:focus {
+  border-color: tomato;
+}
+.payment-row {
+  display: flex;
+  gap: 12px;
+}
+.payment-row > div {
+  flex: 1;
+}
+
+/* ── Pay Button ── */
+.pay-now-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b35, #e63946);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-top: 4px;
+}
+.pay-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(230, 57, 70, 0.35);
+}
+
+.secure-note {
+  text-align: center;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 12px;
+}
+
+/* ── Result States ── */
+.payment-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  text-align: center;
+}
+.payment-result h2 {
+  font-size: 22px;
+  margin: 16px 0 8px;
+  color: #222;
+}
+.payment-result p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.result-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.success-icon {
+  background: #e6f9ed;
+  color: #22c55e;
+  border: 3px solid #22c55e;
+}
+.fail-icon {
+  background: #fdecea;
+  color: #e63946;
+  border: 3px solid #e63946;
+}
+
+.order-id-text {
+  font-size: 12px !important;
+  color: #999 !important;
+  margin-top: 10px !important;
+}
+.order-id-text span {
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.done-btn {
+  margin-top: 20px;
+  padding: 12px 32px;
+  background: tomato;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.done-btn:hover { background: #d94f38; }
+.retry-btn { background: #555; }
+.retry-btn:hover { background: #333; }
+
+/* ── Spinner ── */
+.spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid #f0f0f0;
+  border-top-color: tomato;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 10px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Netbanking Styles ── */
+.netbanking-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.section-label {
+  margin-top: 5px;
+}
+.bank-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.bank-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 500;
+}
+.bank-option:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+.bank-option.active {
+  border-color: tomato;
+  background: #fff5f5;
+  color: tomato;
+  box-shadow: 0 0 0 1px tomato;
+}
+.bank-logo {
+  font-size: 20px;
+}
+.bank-name {
+  font-size: 13px;
+}
+.other-banks-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 9px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  outline: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+.other-banks-select:focus {
+  border-color: tomato;
+}
+.selected-bank-info {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* ── UPI Styles ── */
+.upi-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.upi-choice {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.upi-choice-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  color: #64748b;
+}
+.upi-choice-btn:hover {
+  background: #f1f5f9;
+}
+.upi-choice-btn.active {
+  background: tomato;
+  color: #fff;
+  border-color: tomato;
+}
+.upi-id-form {
+  display: flex;
+  flex-direction: column;
+}
+.upi-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+.upi-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0;
+}
+.qr-box-wrapper {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.mock-qr-code {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qr-svg {
+  animation: qrPulse 2s infinite ease-in-out;
+}
+@keyframes qrPulse {
+  0%, 100% { opacity: 0.95; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+.qr-instruction {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 5px;
 }

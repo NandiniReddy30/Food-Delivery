@@ -1,13 +1,49 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url } =
-    useContext(StoreContext);
+  const {
+    cartItems,
+    food_list,
+    removeFromCart,
+    getTotalCartAmount,
+    url,
+    promoCodeApplied,
+    promoDiscount,
+    applyPromoCode,
+    removePromoCode,
+    getDeliveryFee,
+    getFinalTotal,
+  } = useContext(StoreContext);
 
   const navigate = useNavigate();
+  const [promoInput, setPromoInput] = useState("");
+  const [promoFeedback, setPromoFeedback] = useState({ type: "", message: "" });
+
+  const handlePromoSubmit = (e) => {
+    e.preventDefault();
+    if (!promoInput.trim()) return;
+
+    if (promoCodeApplied) {
+      setPromoFeedback({ type: "error", message: "A promo code is already applied. Remove it first." });
+      return;
+    }
+
+    const res = applyPromoCode(promoInput);
+    if (res.success) {
+      setPromoFeedback({ type: "success", message: res.message });
+      setPromoInput("");
+    } else {
+      setPromoFeedback({ type: "error", message: res.message });
+    }
+  };
+
+  const handlePromoRemove = () => {
+    removePromoCode();
+    setPromoFeedback({ type: "", message: "" });
+  };
 
   return (
     <div className="cart">
@@ -53,13 +89,31 @@ const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+              <p>${getDeliveryFee()}</p>
             </div>
             <hr />
+            {promoDiscount > 0 && (
+              <>
+                <div className="cart-total-details">
+                  <p>Promo Discount ({promoCodeApplied})</p>
+                  <p style={{ color: "#22c55e", fontWeight: "600" }}>-${promoDiscount}</p>
+                </div>
+                <hr />
+              </>
+            )}
+            {promoCodeApplied === "FREEBY" && (
+              <>
+                <div className="cart-total-details">
+                  <p>Promo Discount ({promoCodeApplied})</p>
+                  <p style={{ color: "#22c55e", fontWeight: "600" }}>Free Delivery</p>
+                </div>
+                <hr />
+              </>
+            )}
             <div className="cart-total-details">
               <b>Total</b>
               <b>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+                ${getFinalTotal()}
               </b>
             </div>
           </div>
@@ -69,9 +123,33 @@ const Cart = () => {
         </div>
         <div className="cart-promocode">
           <p>If you have a promo code, Enter it here</p>
-          <div className="cart-promode-input">
-            <input type="text" placeholder="promo code" />
-            <button>Submit</button>
+          <form className="cart-promode-input" onSubmit={handlePromoSubmit}>
+            <input
+              type="text"
+              placeholder="promo code"
+              value={promoInput}
+              onChange={(e) => setPromoInput(e.target.value)}
+              disabled={!!promoCodeApplied}
+            />
+            {promoCodeApplied ? (
+              <button type="button" onClick={handlePromoRemove} className="remove-btn">
+                Remove
+              </button>
+            ) : (
+              <button type="submit">Submit</button>
+            )}
+          </form>
+          {promoFeedback.message && (
+            <p className={`promo-feedback ${promoFeedback.type}`}>
+              {promoFeedback.message}
+            </p>
+          )}
+          <div className="available-promos">
+            <span>Available codes:</span>
+            <span className="code-badge" onClick={() => setPromoInput("SAVE10")}>SAVE10</span>
+            <span className="code-badge" onClick={() => setPromoInput("SAVE20")}>SAVE20</span>
+            <span className="code-badge" onClick={() => setPromoInput("FOOD20")}>FOOD20</span>
+            <span className="code-badge" onClick={() => setPromoInput("FREEBY")}>FREEBY</span>
           </div>
         </div>
       </div>

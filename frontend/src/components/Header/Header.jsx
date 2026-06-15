@@ -12,7 +12,12 @@ const Header = () => {
           is to satisfy your cravings and elevate your dining experience,one
           delicious meal at a time.
         </p>
-        <button>View Menu</button>
+        <button onClick={() => {
+          const element = document.getElementById("explore-menu");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }}>View Menu</button>
       </div>
     </div>
   );

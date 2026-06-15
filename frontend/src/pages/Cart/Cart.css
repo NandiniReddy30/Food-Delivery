@@ -88,3 +88,55 @@
     justify-content: start;
   }
 }
+
+/* ── Promo Code Feedback Styles ── */
+.promo-feedback {
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+.promo-feedback.success {
+  color: #22c55e;
+}
+.promo-feedback.error {
+  color: #ef4444;
+}
+
+.cart-promode-input input:disabled {
+  color: #888;
+  cursor: not-allowed;
+}
+
+.cart-promode-input button.remove-btn {
+  background-color: #dc2626;
+  cursor: pointer;
+}
+.cart-promode-input button.remove-btn:hover {
+  background-color: #b91c1c;
+}
+
+.available-promos {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+}
+.code-badge {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px dashed #cbd5e1;
+  transition: all 0.2s ease;
+}
+.code-badge:hover {
+  background-color: #e2e8f0;
+  border-color: tomato;
+  color: tomato;
+}
