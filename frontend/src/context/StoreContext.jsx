@@ -15,6 +15,7 @@ const StoreContextProvider = (props) => {
   const [promoDiscount, setPromoDiscount] = useState(0);
   const [category, setCategory] = useState("All");
 
+  const frontend_url = import.meta.env.FRONTEND_URL;
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
